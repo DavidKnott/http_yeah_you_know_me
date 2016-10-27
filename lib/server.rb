@@ -34,13 +34,9 @@ class Server
 
                 @router.set_variables(request_lines, @hello_counter, @counter)
                 output = @router.router_decisions
+                output = parse_output(output)
                 
-                current_status = output.pop
-          
-                check_to_see_if_game_has_already_started_and_return_status_code(current_status)
-                output = output.join
-                check_for_shutdown(output)
-                move_counters_up_one_if_activated(output)
+                
 
                 response = "<html><head><pre>" + output + "\n" + debugging_diagnostic + "</pre></head><body</body></html>"
                 headers = Header.check_status_code_for_redirect(response, @status_tracker, output)
@@ -53,8 +49,17 @@ class Server
             end
     end
 
+    def parse_output(output)
+        current_status = output.pop
+        check_to_see_if_game_has_already_started_and_return_status_code(current_status)
+        output = output.join
+        check_for_shutdown(output)
+        move_counters_up_one_if_activated(output)
+        output
+    end
+
     def check_for_shutdown(output)
-        @status = "off" if output.include?("Total")
+        @server_status = "off" if output.include?("Total")
     end
 
     def move_counters_up_one_if_activated(output)

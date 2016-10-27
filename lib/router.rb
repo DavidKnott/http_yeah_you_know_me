@@ -39,7 +39,7 @@ class Router
         elsif @diagnostic.verb == "GET" && @diagnostic.path == "/game"
             return [@number_game.guess_results, "200 OK"]
         elsif @diagnostic.verb == "POST" && @diagnostic.path == "/game"
-            return [@number_game.make_guess(@diagnostic.param_value), "200 OK"]
+            return [@number_game.make_guess(@diagnostic.param_value), "302 Redirect"]
         end
     end
 

@@ -28,7 +28,7 @@ class ServerTest < Minitest::Test
         conn = Faraday.new
         response = conn.get 'http://localhost:9292/datetime'
         time = Time.new
-        assert_equal time.hour.to_s, response.body[22]
+        assert_equal time.hour.to_s, response.body[21..22]
     end
 
     def test_it_can_accept_a_post

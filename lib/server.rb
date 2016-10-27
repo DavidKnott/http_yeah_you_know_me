@@ -36,8 +36,6 @@ class Server
                 output = @router.router_decisions
                 output = parse_output(output)
                 
-                
-
                 response = "<html><head><pre>" + output + "\n" + debugging_diagnostic + "</pre></head><body</body></html>"
                 headers = Header.check_status_code_for_redirect(response, @status_tracker, output)
                 
